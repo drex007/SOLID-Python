@@ -108,3 +108,62 @@ Each of the animal classes overrides the parent Animal Class function -> make_so
 
 With the above the animal_sound function does not need to change even if we add a 1000 and 1 animal classes inheriting from the Animal Class
 """
+
+
+
+"""
+We will take a second example and
+
+
+Assuming you own an Ice cream shop and you are currently running a discount for your customers as follows
+
+1. Normal Discount  (10% discount)
+2. Customers at age 50  (20 % discount)
+3. Customer above 70 years  (40% discount)
+"""
+
+
+class Discount:
+    def __init__(self, age, price):
+        self.age = age
+        self.price = price
+    
+    def get_discount(self):
+        if self.age == 50:
+            return self.price * 0.1 * 2
+            
+        if self.age > 70:
+            return self.price * 0.1 * 4 
+            
+"""
+Assuming you decided to add to your discount list of customers that are less than 15 years (60% discount) of age
+
+We will need to add to the conditions of get_discount and this will make it longer and defiles the law of OCP
+
+
+"""
+
+
+"""
+The above has been redefined below inorder to conform to OCP 
+"""
+
+
+class Discount:
+    def __init__(self, price):
+        self.price = price
+        
+    def get_discount(self):
+        return self.price * 0.1
+
+class Age50Discount(Discount):
+    def get_discount(self):
+        return super().get_discount() * 2
+
+class Age70Discount(Discount):
+    def get_discount(self):
+        return super().get_discount() * 4
+
+class Below15Discount(Discount):
+    def get_discount(self):
+        return super().get_discount() * 6
